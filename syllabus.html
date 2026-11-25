@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Syllabus &amp; Pattern | BharatJobAlert</title>
+    <meta name="description" content="Complete syllabus and exam pattern for SSC CGL, RRB NTPC, IBPS PO/Clerk, and UPSC CDS/NDA.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">BharatJobAlert</div>
+                <nav class="top-nav" aria-label="Main navigation">
+                    <a href="index.html">Home</a>
+                    <a href="syllabus.html" class="active">Syllabus</a>
+                    <a href="mock-test.html">Mock Tests &amp; PYQs</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="disclaimer.html">Disclaimer</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="filters">
+            <div class="filter-section">
+                <label class="filter-label">Filter Syllabus by Exam Category</label>
+                <div class="filter-chips" id="sylFilters">
+                    <button class="chip active" data-exam="all">All Exams</button>
+                    <button class="chip" data-exam="SSC">SSC</button>
+                    <button class="chip" data-exam="RRB">Railway (RRB)</button>
+                    <button class="chip" data-exam="BANKING">Banking</button>
+                    <button class="chip" data-exam="UPSC">UPSC Defence</button>
+                </div>
+            </div>
+        </div>
+
+        <main class="jobs-grid" id="syllabusGrid"></main>
+
+        <footer class="site-footer">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="mock-test.html">Mock Tests</a>
+                <a href="about.html">About Us</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+            </div>
+            <p>BharatJobAlert — Always cross-check the latest official notification PDF for any syllabus revisions.</p>
+        </footer>
+    </div>
+
+    <script>
+        const syllabi = [
+            {
+                exam: "SSC",
+                title: "SSC CGL &amp; CHSL (2026–2027) Syllabus",
+                stages: "CBT Tier-1 + CBT Tier-2 + Skill/Typing Test",
+                topics: [
+                    "Quantitative Aptitude: Percentages, Ratio, Profit & Loss, Geometry, Trigonometry, Mensuration, Algebra.",
+                    "General Intelligence & Reasoning: Analogy, Coding-Decoding, Series, Syllogism, Non-Verbal Reasoning.",
+                    "English Comprehension: Cloze Test, Idioms, Error Spotting, Synonyms/Antonyms, Reading Comprehension.",
+                    "General Awareness: Indian Polity, History, Geography, Economy, General Science, Current Affairs."
+                ]
+            },
+            {
+                exam: "RRB",
+                title: "RRB NTPC, Group D &amp; Apprentice (2026–2027) Syllabus",
+                stages: "CBT-1 + CBT-2 + Typing / Physical Test (post-wise)",
+                topics: [
+                    "Mathematics: Number System, BODMAS, Fractions, LCM/HCF, Time & Work, Simple & Compound Interest.",
+                    "General Intelligence: Puzzles, Venn Diagrams, Data Sufficiency, Statement & Conclusion.",
+                    "General Awareness & Science: Physics, Chemistry, Life Sciences (10th level), Indian Railways & Current Events."
+                ]
+            },
+            {
+                exam: "BANKING",
+                title: "IBPS & SBI PO / Clerk Syllabus",
+                stages: "Prelims + Mains (+ Interview for PO)",
+                topics: [
+                    "Reasoning Ability: Seating Arrangement, Puzzles, Inequality, Blood Relations, Syllogism.",
+                    "Quantitative Aptitude: Data Interpretation (DI), Simplification, Quadratic Equations, Arithmetic.",
+                    "English Language: Reading Comprehension, Para Jumbles, Cloze Test, Error Detection.",
+                    "General / Financial Awareness: Banking Terminology, RBI Policies, Union Budget, Static GK."
+                ]
+            },
+            {
+                exam: "UPSC",
+                title: "UPSC CSE, NDA &amp; CDS (2027) Syllabus",
+                stages: "Written Examination + SSB Interview",
+                topics: [
+                    "Mathematics: Algebra, Matrices, Trigonometry, Analytical Geometry, Calculus, Statistics.",
+                    "General Ability / GK: Physics, Chemistry, General Science, History, Geography, Current Events.",
+                    "English: Spotting Errors, Sentence Arrangement, Vocabulary, Comprehension."
+                ]
+            }
+        ];
+
+        let activeExam = 'all';
+        function renderSyllabus() {
+            const grid = document.getElementById('syllabusGrid');
+            const list = syllabi.filter(s => activeExam === 'all' || s.exam === activeExam);
+            grid.innerHTML = list.map(s => `
+                <article class="syllabus-card">
+                    <div class="job-org">${s.exam}</div>
+                    <h2>${s.title}</h2>
+                    <p style="font-size:13px; color:#616161; margin-bottom:8px;"><strong>Selection Stages:</strong> ${s.stages}</p>
+                    <ul>${s.topics.map(t => `<li>${t}</li>`).join('')}</ul>
+                    <div style="margin-top:16px;">
+                        <a href="mock-test.html?exam=${encodeURIComponent(s.exam)}" class="apply-btn" style="text-decoration:none; display:inline-block;">Practice ${s.exam} Mock Test →</a>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        document.getElementById('sylFilters').addEventListener('click', (e) => {
+            if (e.target.classList.contains('chip')) {
+                document.querySelectorAll('#sylFilters .chip').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                activeExam = e.target.dataset.exam;
+                renderSyllabus();
+            }
+        });
+        renderSyllabus();
+    </script>
+</body>
+</html>

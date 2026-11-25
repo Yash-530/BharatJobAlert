@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yash-530.github.io/Govt-Job-Alert/sitemap.xml
