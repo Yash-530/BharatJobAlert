@@ -1,1 +1,32 @@
+name: Auto-Update Job Listings
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run job feed updater
+        run: python3 Scripts/update_jobs.py
+
+      - name: Commit and push updated jobs-data.js
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add jobs-data.js sitemap.xml
+          git diff --staged --quiet || (git commit -m "Auto-update job listings" && git push)
 
